@@ -21,7 +21,7 @@ namespace BaseWallet
         }
         private void RegisterServices(ContainerBuilder builder)
         {
-            builder.RegisterType<DatabaseContext>().SingleInstance();
+            builder.RegisterType<DatabaseContext>().SingleInstance();           
         }
 
         public async Task Start(string walletName = "defaultWallet", string password = "")

@@ -17,10 +17,12 @@ namespace BaseWallet.Data
         }
         public ILiteCollection<Wallet> Wallets { get; private set; }
         public ILiteCollection<Transaction> Transactions { get; private set; }
+        public ILiteCollection<SendTransaction> SentTransactions { get; private set; }
         private void CreateCollections()
         {
             Wallets = Database.GetCollection<Wallet>(nameof(Wallets));
             Transactions = Database.GetCollection<Transaction>(nameof(Transactions));
+            SentTransactions = Database.GetCollection<SendTransaction>(nameof(SentTransactions));
         }
 
         public void Dispose()

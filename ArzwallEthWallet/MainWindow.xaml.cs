@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NBitcoin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,9 @@ namespace ArzwallEthWallet
         public MainWindow()
         {
             InitializeComponent();
+            var mnemo = new Mnemonic(Wordlist.English, WordCount.Twelve);
+            var wo = string.Join(' ', mnemo.Words);
+            Console.WriteLine(wo); 
         }
     }
 }

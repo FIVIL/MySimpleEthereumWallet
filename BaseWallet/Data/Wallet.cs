@@ -7,8 +7,8 @@ namespace BaseWallet.Data
     public class Wallet
     {
         public string Name { get; set; }
-        public string PrivateKey { get; set; }
-        public int KeyPath { get; set; }
-        public double Balance { get; set; }
+        public int Index { get; set; }
+        public decimal Balance { get; set; }
+        public bool WatchOnly { get; set; }
     }
 }

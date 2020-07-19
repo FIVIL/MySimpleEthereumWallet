@@ -13,5 +13,6 @@ namespace BaseWallet
 
         public string Password { get; set; }
         public string WalletName { get; set; }
+        public string InfuraLink { get; set; }
     }
 }
