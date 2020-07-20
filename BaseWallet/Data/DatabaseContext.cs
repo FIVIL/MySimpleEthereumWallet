@@ -1,6 +1,7 @@
 ﻿using LiteDB;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace BaseWallet.Data
@@ -11,6 +12,7 @@ namespace BaseWallet.Data
         private LiteDatabase Database { get; }
         public DatabaseContext(Configuration configuration)
         {
+            if (!Directory.Exists(configuration.DbPath)) Directory.CreateDirectory(configuration.DbPath);
             Database = new LiteDatabase(configuration.GetDbPath(configuration.WalletName));
             CreateCollections();
 

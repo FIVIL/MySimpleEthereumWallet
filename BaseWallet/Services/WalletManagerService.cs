@@ -15,7 +15,16 @@ namespace BaseWallet.Services
 {
     public interface IWalletManagerService
     {
-
+        string[] GenerateWallet(string password);
+        void GenerateWallet(string[] seed, string password);
+        void GenerateWatchOnlyWallet(string extPubKey);
+        string ExportExtendedPublicKey();
+        string GetAddress(int index);
+        string GenerateNewAddress();
+        Task<SendTransaction> CreateUnsignedTransaction(int index, string toAddress, decimal value);
+        Task<decimal> GetBalance(int index);
+        Data.Wallet GetWalletFromDatabase();
+        long GetCurrentIndex();
     }
     public class WalletManagerService : IWalletManagerService, IDisposable
     {

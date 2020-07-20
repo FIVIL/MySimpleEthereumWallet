@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Core;
 using BaseWallet.Data;
+using BaseWallet.Services;
 using Nethereum.Util;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,8 @@ namespace BaseWallet
         }
         private void RegisterServices(ContainerBuilder builder)
         {
-            builder.RegisterType<DatabaseContext>().SingleInstance();           
+            builder.RegisterType<DatabaseContext>().SingleInstance();
+            builder.RegisterType<WalletManagerService>().As<IWalletManagerService>().SingleInstance();
         }
 
         public async Task Start(string walletName = "defaultWallet", string password = "")

@@ -1,4 +1,6 @@
-﻿using NBitcoin;
+﻿using BaseWallet;
+using BaseWallet.Services;
+using NBitcoin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +26,22 @@ namespace ArzwallEthWallet
         public MainWindow()
         {
             InitializeComponent();
-            var mnemo = new Mnemonic(Wordlist.English, WordCount.Twelve);
-            var wo = string.Join(' ', mnemo.Words);
-            Console.WriteLine(wo); 
+        }
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var s = new Startup();
+            await s.Start();
+            var w = s.Resolve<IWalletManagerService>();
+            var seed = w.GenerateWallet("test");
+            var expub = w.ExportExtendedPublicKey();
+            var add1 = w.GetAddress(0);
+            var s2 = new Startup();
+            await s2.Start("w2");
+            var w2 = s2.Resolve<IWalletManagerService>();
+            w2.GenerateWatchOnlyWallet(expub);
+            var add2 = w2.GetAddress(0);
+            Address.Text = $"{add1}-----{add2}----{add1 == add2}";
         }
     }
 }
