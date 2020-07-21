@@ -32,22 +32,6 @@ namespace ArzwallEthWallet
         {
             var s = new Startup();
             await s.Start();
-            var w = s.Resolve<IWalletManagerService>();
-            var seed = w.GenerateWallet("test");
-            var expub = w.ExportExtendedPublicKey();
-            var add1 = w.GetAddress(0);
-            var s2 = new Startup();
-            await s2.Start("w2");
-            var w2 = s2.Resolve<IWalletManagerService>();
-            w2.GenerateWatchOnlyWallet(expub);
-            Address.Items.Add(new TextBox
-            {
-                Text = string.Join(' ', seed)
-            });
-            for (int i = 0; i < 20; i++)
-            {
-                Address.Items.Add(w.GetAddress(i));
-            }
         }
     }
 }

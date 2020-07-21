@@ -32,13 +32,13 @@ namespace BaseWallet.Services
                 Nonce = Nonce,
                 Tag = tag
             };
-            var ds = d.ToJson().ToUtf8Bytes();
-            await File.WriteAllBytesAsync(path, ds);
+            var ds = d.ToJson().ToUtf8Bytes().FromBase64Byte();
+            await File.WriteAllTextAsync(path, ds);
         }
 
         public async Task<(string privateKey, Guid password)> DecryptReadAsync(string path, string password)
         {
-            var data = (await File.ReadAllBytesAsync(path)).FromUtf8Byte().FromJson<DataModel>();
+            var data = (await File.ReadAllTextAsync(path)).ToBase64Bytes().FromUtf8Byte().FromJson<DataModel>();
             var dec = DecryptByte(data.Cipher, data.Tag, data.Nonce, password).FromUtf8Byte().Split(';');
             return (dec[0], Guid.Parse(dec[1]));
         }
