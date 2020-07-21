@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button VerticalAlignment="Center" HorizontalAlignment="Center" Click="Button_Click">Test</Button>
-        <TextBox VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="Address" TextWrapping="Wrap">Test</TextBox>
+        <Button VerticalAlignment="Top" HorizontalAlignment="Center" Click="Button_Click">Test</Button>
+        <ListBox VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="Address" >
+            Test
+        </ListBox>
     </Grid>
 </Window>

@@ -40,8 +40,14 @@ namespace ArzwallEthWallet
             await s2.Start("w2");
             var w2 = s2.Resolve<IWalletManagerService>();
             w2.GenerateWatchOnlyWallet(expub);
-            var add2 = w2.GetAddress(0);
-            Address.Text = $"{add1}-----{add2}----{add1 == add2}";
+            Address.Items.Add(new TextBox
+            {
+                Text = string.Join(' ', seed)
+            });
+            for (int i = 0; i < 20; i++)
+            {
+                Address.Items.Add(w.GetAddress(i));
+            }
         }
     }
 }
