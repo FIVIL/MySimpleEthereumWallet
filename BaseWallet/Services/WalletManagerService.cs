@@ -15,8 +15,8 @@ namespace BaseWallet.Services
 {
     public interface IWalletManagerService
     {
-        string[] GenerateWallet(string password);
-        void GenerateWallet(string[] seed, string password);
+        string[] GenerateWallet(Guid password);
+        void GenerateWallet(string[] seed, Guid password);
         void GenerateWatchOnlyWallet(string extPubKey);
         string ExportExtendedPublicKey();
         string GetAddress(int index);
@@ -40,15 +40,15 @@ namespace BaseWallet.Services
         private Wallet Wallet { get; set; }
         private PublicWallet PublicWallet { get; set; }
 
-        public string[] GenerateWallet(string password)
+        public string[] GenerateWallet(Guid password)
         {
             var mnemo = new Mnemonic(Wordlist.English, WordCount.Twelve);
-            Wallet = new Wallet(string.Join(' ', mnemo.Words), password);
+            Wallet = new Wallet(string.Join(' ', mnemo.Words), password.ToString());
             return mnemo.Words;
         }
-        public void GenerateWallet(string[] seed, string password)
+        public void GenerateWallet(string[] seed, Guid password)
         {
-            Wallet = new Wallet(string.Join(' ', seed), password);
+            Wallet = new Wallet(string.Join(' ', seed), password.ToString());
         }
 
         public void GenerateWatchOnlyWallet(string extPubKey)

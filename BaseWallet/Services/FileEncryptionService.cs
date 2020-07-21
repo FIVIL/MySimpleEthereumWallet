@@ -8,11 +8,16 @@ using System.Threading.Tasks;
 
 namespace BaseWallet.Services
 {
-    public class FileEncryptionService
+    public interface IFileEncryptionService
+    {
+        Task EncryptWriteAsync(string privateKey, Guid walletPassword, string path, string password);
+        Task<(string privateKey, Guid password)> DecryptReadAsync(string path, string password);
+    }
+    public class FileEncryptionService: IFileEncryptionService
     {
         class DataModel
         {
-            public byte[] cipher { get; set; }
+            public byte[] Cipher { get; set; }
             public byte[] Tag { get; set; }
             public byte[] Nonce { get; set; }
         }
@@ -23,7 +28,7 @@ namespace BaseWallet.Services
             var (cipher, tag, Nonce) = Encrypt(clearpBytes, password);
             var d = new DataModel
             {
-                cipher = cipher,
+                Cipher = cipher,
                 Nonce = Nonce,
                 Tag = tag
             };
@@ -34,7 +39,7 @@ namespace BaseWallet.Services
         public async Task<(string privateKey, Guid password)> DecryptReadAsync(string path, string password)
         {
             var data = (await File.ReadAllBytesAsync(path)).FromUtf8Byte().FromJson<DataModel>();
-            var dec = DecryptByte(data.cipher, data.Tag, data.Nonce, password).FromUtf8Byte().Split(';');
+            var dec = DecryptByte(data.Cipher, data.Tag, data.Nonce, password).FromUtf8Byte().Split(';');
             return (dec[0], Guid.Parse(dec[1]));
         }
 

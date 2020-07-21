@@ -24,6 +24,7 @@ namespace BaseWallet
         {
             builder.RegisterType<DatabaseContext>().SingleInstance();
             builder.RegisterType<WalletManagerService>().As<IWalletManagerService>().SingleInstance();
+            builder.RegisterType<FileEncryptionService>().As<IFileEncryptionService>().InstancePerDependency();
         }
 
         public async Task Start(string walletName = "defaultWallet", string password = "")
