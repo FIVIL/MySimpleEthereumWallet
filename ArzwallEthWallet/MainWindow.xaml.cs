@@ -26,12 +26,21 @@ namespace ArzwallEthWallet
         public MainWindow()
         {
             InitializeComponent();
+            start();
         }
-
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private async void start()
         {
             var s = new Startup();
             await s.Start();
+            var w = s.Resolve<IWalletManagerService>();
+            var res = w.GenerateWallet(Guid.NewGuid());
+            var res2 = w.ExportExtendedPublicKey();
+            text1.Text = string.Join(' ', res);
+            text2.Text = res2;
+
+        }
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 }
